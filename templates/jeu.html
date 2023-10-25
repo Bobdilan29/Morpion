@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morpion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    {% if jeu.erreur %}
+    <p class="bg-red-300">{{ jeu.erreur }}</p>
+    {% endif %}
+
+    {% if jeu.gagnant %}
+    <p class="bg-green-300">Le joueur "{{ jeu.gagnant }}" a gagné ! Félicitations !</p>
+    {% endif %}
+
+    {% if jeu.estMatchNul %}
+    <p class="bg-blue-300">Match nul !</p>
+    {% endif %}
+
+    <table class="mx-auto my-12">
+        {% for x, ligne in jeu.plateau %}
+        <tr>
+            {% for y, case in ligne %}
+            <td class="w-24 h-24 text-center align-middle text-5xl border border-black">
+
+                {% if case is not empty %}
+                {{ case }}
+                {% elseif not jeu.gagnant %}
+                <a href="jouer_un_coup.php?x={{ x }}&y={{ y }}" class="w-24 h-24 block"></a>
+                {% endif %}
+
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
